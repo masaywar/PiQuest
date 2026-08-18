@@ -1,34 +1,39 @@
 # PiQuest
 
-PiQuest is a game-development-focused coding agent built on Pi (the `pi-mono` monorepo). It does not rewrite Pi or build a generic agent framework from scratch: it preserves upstream Pi's agent, model/provider, session, tool, and TUI infrastructure and layers game-development behavior on top.
+> An AI agent designed for full-stack game development workflows — going beyond simple code editing.
 
-The repository currently tracks upstream Pi (v0.84.2). Upstream mergeability is a first-class concern; PiQuest-specific code is isolated in PiQuest-owned packages.
+**PiQuest** is an experimental game development AI agent based on [Pi](https://github.com/badlogic/pi-mono). It focuses on closing the gap between code generation and actual engine runtime verification.
 
-## Status
+---
 
-Foundation stage. The repo is a plain upstream Pi clone with the PiQuest development rules established in `AGENTS.md`. Game-development features are not implemented yet.
+## 🎯 Core Principles
 
-## Architecture
+1. **Game Repository as a Project, Not Just Code**: Treats Unity assets, scenes, prefabs, ScriptableObjects, and settings as interconnected artifacts.
+2. **Evidence-Driven Verification**: "Compiles" does not mean "works." Success is measured through runtime state, logs, visual inspection, and profiler data.
+3. **Workflow-First, Multi-Agent Later**: Optimizes specialized workflows before splitting into complex multi-agent architecture.
+4. **Pragmatic Unity-First Focus**: Validates workflows inside Unity first before generalizing across engines.
 
-Three tiers, in decreasing order of mergeability with upstream:
+---
 
-- **Upstream-owned packages** (`packages/agent`, `packages/ai`, `packages/tui`, `packages/client`, `packages/protocol`, `packages/server`, `packages/session-backends`, `packages/telemetry`, `packages/evals`) stay as close to upstream as possible.
-- **`packages/coding-agent`** is the primary Pi integration surface: programmatic SDK, session APIs, extension APIs, tool factories, and presentation hooks.
-- **PiQuest-owned code** will live in `packages/piquest/`: the `piquest` CLI entry point, branding and presentation, project/game context, engine detection and adapters, game-specific tools, and run/playtest/verification workflows.
+## 🔄 Verification Ladder
 
-Engine-specific functionality lives behind explicit engine adapter boundaries. Unity is the first target; there is no speculative multi-engine support.
+PiQuest validates changes using the most efficient tier needed:
 
-## Development
+1. Static & Syntax Analysis
+2. Unity Compile / Import Validation
+3. Scene & Project Load Check
+4. Play Mode Execution
+5. Runtime State & Gameplay Verification
+6. Visual Inspection (Screenshots)
+7. Profiling & Performance Metrics
 
-```bash
-npm install --ignore-scripts  # Install dependencies without lifecycle scripts
-npm run check         # Lint, format, typecheck, and dependency checks
-./test.sh             # Run tests without API keys
-./pi-test.sh          # Run the agent from sources
-```
+---
 
-See `AGENTS.md` for detailed development rules (architecture boundaries, upstream policy, commands, testing).
+## 🚀 Target Workflows
 
-## License
+- **Gameplay & Logic**: Implementing features and debugging runtime exceptions.
+- **Engine Artifacts**: Managing scenes, prefabs, and ScriptableObjects.
+- **Performance & Profiling**: Metric-driven optimizations (CPU, GPU, GC, Memory).
+- **Art & Production**: Integrating UI and art assets into scene hierarchy.
 
-MIT. PiQuest is derived from [Pi](https://github.com/earendil-works/pi), MIT licensed.
+---
